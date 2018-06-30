@@ -27,7 +27,8 @@ config =
 getIds =
     List.map .id
 
-putOneTests: Test
+
+putOneTests : Test
 putOneTests =
     describe "putOne"
         [ test "it adds" <|
@@ -61,4 +62,33 @@ putOneTests =
                             [ Person 2 "Sally" ]
                 in
                     Expect.equal result [ Person 2 "Sally", Person 1 "Sam" ]
+        ]
+
+
+putManyTests =
+    describe "putMany"
+        [ test "it updates existing ones" <|
+            \_ ->
+                let
+                    result =
+                        putMany
+                            config
+                            [ Person 1 "Zam", Person 2 "Zally" ]
+                            [ Person 1 "Sam", Person 2 "Sally", Person 3 "Tess" ]
+                in
+                    Expect.equal
+                        result
+                        [ Person 1 "Zam", Person 2 "Zally", Person 3 "Tess" ]
+        , test "it puts new ones at the end" <|
+            \_ ->
+                let
+                    result =
+                        putMany
+                            config
+                            [ Person 1 "Sam", Person 2 "Sally" ]
+                            [ Person 2 "S", Person 3 "Kim" ]
+                in
+                    Expect.equal
+                        result
+                        [ Person 2 "Sally", Person 3 "Kim", Person 1 "Sam" ]
         ]
