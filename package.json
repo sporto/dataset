@@ -5,5 +5,8 @@
   "license": "MIT",
   "devDependencies": {
     "elm-test": "^0.18.12"
+  },
+  "scripts": {
+    "test": "elm-test"
   }
 }
