@@ -1,13 +1,10 @@
 module DatasetTests exposing (..)
 
 import Expect exposing (Expectation)
-import Fuzz exposing (Fuzzer, int, list, string)
 import Test exposing (..)
 import Dataset exposing (..)
 
 
--- putOne
--- putMany
 -- deleteOne
 -- deleteMany
 -- findOne
@@ -91,4 +88,21 @@ putManyTests =
                     Expect.equal
                         result
                         [ Person 2 "Sally", Person 3 "Kim", Person 1 "Sam" ]
+        ]
+
+
+deleteManyTests =
+    describe "deleteMany"
+        [ test "it deletes" <|
+            \_ ->
+                let
+                    result =
+                        deleteMany
+                            config
+                            [ 1 ]
+                            [ Person 1 "Sam", Person 2 "Sally" ]
+                in
+                    Expect.equal
+                        result
+                        [ Person 2 "Sally" ]
         ]
