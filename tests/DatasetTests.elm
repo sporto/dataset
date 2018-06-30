@@ -5,8 +5,6 @@ import Test exposing (..)
 import Dataset exposing (..)
 
 
--- deleteOne
--- deleteMany
 -- findOne
 -- findMany
 
@@ -106,3 +104,20 @@ deleteManyTests =
                         result
                         [ Person 2 "Sally" ]
         ]
+
+
+findOneTests =
+    describe "findOne" [
+        test "it finds" <|
+            \_ ->
+                let
+                    result =
+                        findOne
+                            config
+                            1
+                            [ Person 1 "Sam", Person 2 "Sally" ]
+                in
+                    Expect.equal
+                        result
+                        (Just <| Person 1 "Sam")
+    ]

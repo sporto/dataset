@@ -1,4 +1,4 @@
-module Dataset exposing (Config, putOne, putMany, deleteOne, deleteMany)
+module Dataset exposing (Config, putOne, putMany, deleteOne, deleteMany, findOne)
 
 
 type alias Config a id =
