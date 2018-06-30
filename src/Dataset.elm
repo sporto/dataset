@@ -1,4 +1,13 @@
-module Dataset exposing (Config, putOne, putMany, deleteOne, deleteMany, findOne)
+module Dataset
+    exposing
+        ( Config
+        , putOne
+        , putMany
+        , deleteOne
+        , deleteMany
+        , findOne
+        , findMany
+        )
 
 
 type alias Config a id =
@@ -60,6 +69,11 @@ findOne config id items =
     items
         |> List.filter (itemsHasIdIn config [ id ])
         |> List.head
+
+
+findMany : Config a id -> List id -> List a -> List a
+findMany config ids items =
+    List.filter (itemsHasIdIn config ids) items
 
 
 

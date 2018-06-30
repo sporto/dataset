@@ -107,8 +107,8 @@ deleteManyTests =
 
 
 findOneTests =
-    describe "findOne" [
-        test "it finds" <|
+    describe "findOne"
+        [ test "it finds" <|
             \_ ->
                 let
                     result =
@@ -120,4 +120,21 @@ findOneTests =
                     Expect.equal
                         result
                         (Just <| Person 1 "Sam")
-    ]
+        ]
+
+
+findManyTests =
+    describe "findMany"
+        [ test "it finds" <|
+            \_ ->
+                let
+                    result =
+                        findMany
+                            config
+                            [ 1, 3 ]
+                            [ Person 1 "Sam", Person 2 "Tess", Person 3 "Sally" ]
+                in
+                    Expect.equal
+                        result
+                        [ Person 1 "Sam", Person 3 "Sally" ]
+        ]
