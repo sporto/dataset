@@ -8,7 +8,7 @@ type alias Config a id =
 
 putOne : Config a id -> a -> List a -> List a
 putOne config item existingItems =
-    putMany config [item] existingItems
+    putMany config [ item ] existingItems
 
 
 putMany : Config a id -> List a -> List a -> List a
@@ -24,12 +24,11 @@ putMany config newItems existingItems =
             newItems
                 |> List.partition isInExistingIds
 
-        _ =
-            Debug.log "added" added
+        updatedItems =
+            existingItems
+                |> List.map (replaceItem config updates)
     in
-        existingItems
-            |> List.map (replaceItem config updates)
-            |> List.append added
+        updatedItems ++ added
 
 
 replaceItem : Config a id -> List a -> a -> a
@@ -56,6 +55,3 @@ findOne config id items =
 itemsHasId : Config a id -> id -> a -> Bool
 itemsHasId config id item =
     config.getId item == id
-
-
-

@@ -27,15 +27,38 @@ config =
 getIds =
     List.map .id
 
-
+putOneTests: Test
 putOneTests =
     describe "putOne"
         [ test "it adds" <|
             \_ ->
                 let
                     result =
-                        putOne config { id = 1, name = "Sam" } []
+                        putOne
+                            config
+                            (Person 1 "Sam")
+                            []
                             |> getIds
                 in
                     Expect.equal result [ 1 ]
+        , test "it replaces an existing one" <|
+            \_ ->
+                let
+                    result =
+                        putOne
+                            config
+                            (Person 1 "Sam")
+                            [ Person 1 "Sally" ]
+                in
+                    Expect.equal result [ Person 1 "Sam" ]
+        , test "it adds new at the end" <|
+            \_ ->
+                let
+                    result =
+                        putOne
+                            config
+                            (Person 1 "Sam")
+                            [ Person 2 "Sally" ]
+                in
+                    Expect.equal result [ Person 2 "Sally", Person 1 "Sam" ]
         ]
